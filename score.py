@@ -1,34 +1,22 @@
-def vertex_sum(vertexs):
+def vertex_sum(features, weights):
     value = 0
-    for vertex in vertexs:
-        weights = vertex["weights"]
-        features = vertex["features"]
-        for i in range(0, len(weights)):
-            value += weights[i] * features[i]
+    for i in range(len(features['V'])):
+        value += weights['V'][i] * features['V'][i]
 
     return value
 
 
-def edge_sum(edges):
+def edge_sum(features, weights):
     value = 0
-    for edge in edges:
-        weights = edge["weights"]
-        features = edge["features"]
-        for i in range(0, len(weights)):
-            value += weights[i] * features[i]
+    for i in range(0, len(features['E'])):
+        value += weights['E'][i] * features['E'][i]
 
     return value
 
-def score(graph):
-    return (1/len(graph["V"]))*vertex_sum(graph["V"]) + (1/len(graph["E"]))*edge_sum(graph["E"])
+def score(features, weights):
+    return (1/len(features["V"]))*vertex_sum(features, weights) + (1/len(features["E"]))*edge_sum(features, weights)
 
-vertex1 = {"weights": [1, 2, 3], "features": [1, .70711, .5]}
-vertex2 = {"weights": [1, 2, 3], "features": [1, .86603, .75]}
-vertex3 = {"weights": [1, 2, 3], "features": [1, .64279, .41318]}
+features = {"V": [[1,2,3],[1,2,3]], "E":[1,2,3,4]}
+weights = {"V":[[1,1,1],[1,1,1]],"E":[[1,1,1,1]]}
 
-edge1 = {"weights": [1, 2, 3, 4], "features": [3, 9, -.15892, -.02526]}
-edge2 = {"weights": [1, 2, 3, 4], "features": [4, 16, .22324, .04984]}
-
-graph = {"V": [vertex1, vertex2, vertex3], "E": [edge1, edge2]}
-
-print(score(graph))
+print(score(features, weights))
