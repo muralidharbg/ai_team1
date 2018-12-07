@@ -3,12 +3,6 @@ import json
 
 angles = list()
 
-def dot(x1, y1, x2, y2):
-    return x1*x2 + y1*y2
-
-def norm(x,y):
-    return math.sqrt(math.pow(x,2) + math.pow(y,2))
-
 def lenEdge(x1, y1, x2, y2):
     return math.sqrt(math.pow(x2-x1, 2) + math.pow(y2-y1, 2))
 
