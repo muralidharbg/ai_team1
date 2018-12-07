@@ -22,6 +22,7 @@ def diffAngles(angle1, angle2):
 
 def calcFeatures(graph):
     global angles
+    features = {'V': list(), 'E': list()}
     for i in range(len(graph)):
         if len(graph) is 1:
             V = [0,0,0]
