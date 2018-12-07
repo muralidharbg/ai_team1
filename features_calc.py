@@ -27,7 +27,7 @@ def calcFeatures(graph):
         if len(graph) is 1:
             V = [0,0,0]
         elif i+1 < len(graph) and i is not 0:
-            V = [1,angle(graph[i][0], graph[i][1], graph[i-1][0], graph[i-1][1], graph[i+1][0], graph[i+1][1]), math.pow(angle(graph[i][0], graph[i][1], graph[i+1][0], graph[i+1][1]),2)]
+            V = [1,angle(graph[i][0], graph[i][1], graph[i-1][0], graph[i-1][1], graph[i+1][0], graph[i+1][1]), math.pow(angle(graph[i][0], graph[i][1], graph[i-1][0], graph[i-1][1], graph[i+1][0], graph[i+1][1]),2)]
         else:
             V = [1,0,0]
 
