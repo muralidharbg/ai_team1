@@ -13,6 +13,7 @@ def lenEdge(x1, y1, x2, y2):
     return math.sqrt(math.pow(x2-x1, 2) + math.pow(y2-y1, 2))
 
 def angle(x1, y1, x2, y2):
+    global angles
     angles.append(math.cos(math.degrees(math.acos(dot(x1, y1, x2, y2)/(norm(x1, y1)*norm(x2,y2))))))
     return math.cos(math.degrees(math.acos(dot(x1, y1, x2, y2)/(norm(x1, y1)*norm(x2,y2)))))
 
