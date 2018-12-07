@@ -39,7 +39,8 @@ def calcFeatures(graph):
         features['V'].append(V)
         features['E'].append(E)
 
+    return features
 
 def getGraph(graphList):
     for graph in graphList:
-        features = calcFeatures(graph)
+        return calcFeatures(graph)
