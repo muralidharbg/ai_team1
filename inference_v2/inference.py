@@ -9,8 +9,8 @@ import random
 vertex = [[1,1],[2,2],[2,5],[2,7],[3,3],[3,8],[4,2],[4,4],[4,7],[5,1],[5,5],[5,6]]
 # vertex = [[1,1],[2,2],[3,3],[4,4],[5,5],[5,6],[4,7],[3,8],[2,7],[2,5],[3,3],[4,2],[5,1]]
 weights = {
-	"V": [[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1]],
-	"E": [[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]]
+	"V": [0.15,0.03,0.05],
+	"E": [0.19,0.84,-0.01,0.03]
 }
 # features = {
 # 	"V": [[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1]],
@@ -20,7 +20,7 @@ weights = {
 def calculate_vertex_score(vertex_feature):
 	value = k = 0
 	for k in range(3):
-		value += 1 * vertex_feature[k]
+		value += weights["V"][k] * vertex_feature[k]
 	
 	return value
 
@@ -42,7 +42,7 @@ def all_vertex_score(features):
 def calculate_edge_score(edge_feature):
 	value = k = 0
 	for k in range(4):
-		value += 1 * edge_feature[k]
+		value += weights["E"][k] * edge_feature[k]
 	
 	return value
 
@@ -205,7 +205,7 @@ def move4(vertex_edge_map, graph_list, vertex_score):
 	while True:
 		rotate = False
 		random_subgraph = np.random.choice(range(len(vertex_edge_map)),1)[0]
-		if len(graph_list[random_subgraph]) > 1:
+		if len(vertex_edge_map[random_subgraph]) > 1:
 			subgraph_end_vertex, = np.where(graph_vertex_degree[random_subgraph] == 1)
 			for vertex_pair in vertex_edge_map[random_subgraph].keys():
 				if subgraph_end_vertex[0] in vertex_pair:
@@ -462,6 +462,20 @@ def index_to_xy(graph_list, vertex):
 		graph_list_xy.append(graph_xy)
 	return graph_list_xy
 
+def randomc(vertexsize,no_of_conf):
+    answer = []
+    tuplelist = []
+
+    for i in range(no_of_conf):
+        for x in range(ll):
+            r = range(0,x) + range(x+1,ll)
+            tuplelist.append(tuple((x,random.choice(r))))
+        answer.append(tuplelist)
+        #print(tuplelist)
+        tuplelist = []
+
+    return answer
+
 # MAIN
 graph_list = []
 graph_list.append(range(len(vertex)))
@@ -492,6 +506,7 @@ plot(vertex_edge_map_initial, vertex)
 plt.show()
 
 # m1
+print("move 1")
 vertex_edge_map_m1, removed_segement, graph_list_m1 = move1(vertex_edge_map_initial, vertex_score, edge_score, graph_list)
 plot(vertex_edge_map_m1, vertex)
 plt.show()
@@ -509,6 +524,7 @@ edge_score_m1 = all_edge_score(features_m1)
 vertex_edge_map_m1 = vertex_edge_map(list_of_vertex_pairs(vertex_edge_map_m1))
 
 # m2
+print("move 2")
 vertex_edge_map_m2, graph_list_m2 = move2(vertex_edge_map_initial, removed_segement, graph_list_m1, vertex_score)
 plot(vertex_edge_map_m2, vertex)
 plt.show()
@@ -519,6 +535,7 @@ vertex_score_m2 = all_vertex_score(features_m2)
 edge_score_m2 = all_edge_score(features_m2)
 
 # move3
+print("move 3")
 vertex_edge_map_m3, removed_segment_m3, graph_list_m3 = move1(vertex_edge_map_initial, vertex_score, edge_score, graph_list_m2)
 
 # this needs to be changed
@@ -538,6 +555,7 @@ plt.show()
 # print(graph_list_m3)
 
 # move4
+print("move 4")
 vertex_edge_map_m4, graph_list_m4 = move4(vertex_edge_map_initial, graph_list_m3, vertex_score)
 # print(vertex_edge_map_m4)
 # print(graph_list_m4)
@@ -553,6 +571,7 @@ edge_score_m4 = all_edge_score(features_m4)
 vertex_edge_map_m4 = vertex_edge_map(list_of_vertex_pairs(vertex_edge_map_m4))
 # print(vertex_edge_map_m4)
 
+print("move 5")
 vertex_pair_list_m5 = move5(vertex_edge_map_initial, graph_list_m4, vertex_score, edge_score)
 vertex_edge_map_m5 = vertex_edge_map(vertex_pair_list_m5)
 plot(vertex_edge_map_m5, vertex)
@@ -569,8 +588,9 @@ vertex_edge_map_m5 = vertex_edge_map(list_of_vertex_pairs(vertex_edge_map_m5))
 # print(vertex_edge_map_m5)
 vertex_pair_list_m6 = []
 
+print("move 6")
 while len(vertex_pair_list_m6) == 0:
-	vertex_pair_list_m6 = move6(vertex_edge_map_m5)
+	vertex_pair_list_m6 = move6(vertex_edge_map_initial)
 	
 vertex_edge_map_m6 = vertex_edge_map(vertex_pair_list_m6)
 plot(vertex_edge_map_m6, vertex)
@@ -583,7 +603,7 @@ edge_score_m6 = all_edge_score(features_m5)
 
 # need to change
 # vertex_edge_map_m6 = vertex_edge_map(list_of_vertex_pairs(vertex_edge_map_m6))
-
+print("move 7")
 vertex_pair_list_m7 = move7(vertex_edge_map_initial)
 vertex_edge_map_m7 = vertex_edge_map(vertex_pair_list_m7)
 plot(vertex_edge_map_m7, vertex)
