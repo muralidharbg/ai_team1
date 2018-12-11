@@ -301,10 +301,9 @@ class Graph:
     # end function updateNumberOfVertices
     
 # end class Graph
-"""
+
 mygraph = Graph();
 labelGraph = Graph();
 mygraph.initializeADummyGraph()
 labelGraph.initializeADummyGraph( [1,2,3,4,5,6,7,8,9,10] )
 my_loss = labelGraph.getLossFunction( mygraph ) 
-"""
