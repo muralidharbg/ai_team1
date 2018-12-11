@@ -50,12 +50,12 @@ def calcFeatures(graph):
             found = False
 
             for vertex in vertices:
-                if vertex2 == [4,4]:
-                    print(f'vertex: {vertex}')
-                    print(f'vertex2: {vertex2}')
+                # if vertex2 == [4,4]:
+                #     print(f'vertex: {vertex}')
+                #     print(f'vertex2: {vertex2}')
                 if vertex[0] == vertex2[0] and vertex[1] == vertex2[1]:
                     found = True
-                    print("hi")
+                    # print("hi")
                     break
             
             if found == False:
@@ -105,7 +105,7 @@ def getGraph(graphList, masterGraph):
 
     return featureList
 
-graphList = [[(0,1),(1,2),(2,3),(3,4),(4,9),(4,5),(5,6),(6,7),(7,8)]]
-masterGraph = [[0,0],[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[9,9]]
+# graphList = [[(0,1),(1,2),(2,3),(3,4),(4,9),(4,5),(5,6),(6,7),(7,8)]]
+# masterGraph = [[0,0],[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[9,9]]
 
-print(getGraph(graphList, masterGraph))
+# print(getGraph(graphList, masterGraph))
